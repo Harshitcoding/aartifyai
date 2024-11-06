@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
+import { useToast } from "@/hooks/use-toast"
 
 const formSchema = z.object({
   prompt: z.string().min(7, { message: "Prompt must be at least 7 characters long" })
@@ -24,7 +25,7 @@ const formSchema = z.object({
 export default function Component() {
   const [outputImg, setOutputImg] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
-
+  const {toast} = useToast()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,7 +41,11 @@ export default function Component() {
         body: JSON.stringify(values),
       })
       const data = await response.json()
-      setOutputImg(data.url)   
+      if (response.status === 200) {
+        setOutputImg(data.url)   
+      } else {
+        toast({variant:"destructive",description:"unautorized"})
+      }
     } catch (error) {
       console.error(error)
     } finally {
@@ -83,7 +88,7 @@ export default function Component() {
             </form>
           </Form>
           
-          <div className="relative h-64 w-full overflow-hidden rounded-lg bg-gray-700/50">
+          <div className="relative h-80 w-full overflow-hidden rounded-lg bg-gray-700/50">
             {outputImg ? (
               <Image 
                 alt="Generated image" 
