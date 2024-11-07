@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form"
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { useToast } from "@/hooks/use-toast"
+import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision"
 
 const formSchema = z.object({
   prompt: z.string().min(7, { message: "Prompt must be at least 7 characters long" })
@@ -55,6 +56,7 @@ export default function Component() {
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center p-4">
+      <BackgroundBeamsWithCollision>
       <Card className="w-full max-w-3xl bg-black border-gray-700">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl font-bold text-white mb-2">AI Image Generator</CardTitle>
@@ -110,6 +112,7 @@ export default function Component() {
           </p>
         </CardFooter>
       </Card>
+    </BackgroundBeamsWithCollision>
     </div>
   )
 }
