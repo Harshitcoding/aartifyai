@@ -19,7 +19,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Aartify Generate Images for FREE",
-  description: "Generate stunning images from text using AI models for free with StableMax. Turn your ideas into visual art instantly.",
+  description: "Generate stunning images from text using AI models for free with Aartifyai. Turn your ideas into visual art instantly.",
 };
 
 export default function RootLayout({
